@@ -1,4 +1,27 @@
 ﻿<Properties StartupConfiguration="{150773A1-BCFA-49F8-842E-E9EC7CCE9359}|Default">
-  <MonoDevelop.Ide.ItemProperties.Hospital FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Hospital/Startup.cs">
+    <Files>
+      <File FileName="Hospital/Startup.cs" Line="74" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Hospital" expanded="True">
+            <Node name="Hospital" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Hospital PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>
