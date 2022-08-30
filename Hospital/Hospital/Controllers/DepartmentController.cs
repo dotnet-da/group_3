@@ -53,7 +53,7 @@ namespace Hospital.Controllers
         [HttpPost]
         public JsonResult Post(Department department)
         {
-            string query = @"INSERT INTO Department (DepartmentName) values (@DepartmentName);";
+            string query = @"INSERT INTO Department (DepartmentName) VALUES (@DepartmentName);";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -73,6 +73,61 @@ namespace Hospital.Controllers
             }
 
             return new JsonResult("Added Successfully");
+        }
+
+        // update a department
+
+        [HttpPut]
+        public JsonResult Put(Department department)
+        {
+            string query = @"UPDATE Department SET DepartmentName = @DepartmentName WHERE DepartmentID = @DepartmentID;";
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myCommand.Parameters.AddWithValue("@DepartmentID", department.DepartmentID);
+                    myCommand.Parameters.AddWithValue("@DepartmentName", department.DepartmentName);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult("Updated Successfully");
+        }
+
+        // delete a department
+
+        [HttpDelete("{id}")]
+        public JsonResult Delete(int id)
+        {
+            string query = @"DELETE FROM Department WHERE DepartmentID = @DepartmentID;";
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myCommand.Parameters.AddWithValue("@DepartmentID", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult("Deleted Successfully");
         }
 
     }
