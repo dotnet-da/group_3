@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gouPme2H59vLdRp6Uek0T1sFHAZFg1bfmhhLxyekC+SR/KSvfHCWwXTWsvgc+13N5s03PRPH8+DrSYtvw0rmQQ==",
+  "dgSpecHash": "chfxWCYBSKMSqTji3SSCqb82Ko8JdHN2g+6YEL8NW9L9ECJtGaXSiAP8wXCYgh+B54stf+MPTM3grkgOnYDISw==",
   "success": true,
   "projectFilePath": "/Users/igor/Desktop/group_3/Hospital/Hospital/Hospital.csproj",
   "expectedPackageFiles": [
+    "/Users/igor/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/igor/.nuget/packages/google.protobuf/3.19.4/google.protobuf.3.19.4.nupkg.sha512",
     "/Users/igor/.nuget/packages/k4os.compression.lz4/1.2.6/k4os.compression.lz4.1.2.6.nupkg.sha512",
     "/Users/igor/.nuget/packages/k4os.compression.lz4.streams/1.2.6/k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
