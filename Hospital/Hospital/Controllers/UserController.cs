@@ -85,7 +85,7 @@ namespace Hospital.Controllers
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
                     myCommand.Parameters.AddWithValue("@UserName", body.UserName);
-                    myCommand.Parameters.AddWithValue("@DepartmentName", BCrypt.Net.BCrypt.HashPassword(body.UserPassword));
+                    myCommand.Parameters.AddWithValue("@UserPassword", BCrypt.Net.BCrypt.HashPassword(body.UserPassword));
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -100,13 +100,55 @@ namespace Hospital.Controllers
 
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public JsonResult Put(int id, [FromBody] User body)
         {
+            string query = @"UPDATE User SET UserName = @UserName, UserPassword = @UserPassword WHERE UserID = @UserID;";
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myCommand.Parameters.AddWithValue("@UserID", id);
+                    myCommand.Parameters.AddWithValue("@UserName", body.UserName);
+                    myCommand.Parameters.AddWithValue("@UserPassword", BCrypt.Net.BCrypt.HashPassword(body.UserPassword));
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult("Updated Successfully");
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public JsonResult Delete(int id)
         {
+            string query = @"DELETE FROM User WHERE UserID = @UserID;";
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myCommand.Parameters.AddWithValue("@UserID", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult("Deleted Successfully");
         }
     }
 }
