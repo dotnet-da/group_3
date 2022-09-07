@@ -8,7 +8,6 @@
   <ItemGroup>
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <None Remove="MySql.Data" />
-    <None Remove="Photos\" />
     <None Remove="Models\" />
     <None Remove="BCrypt.Net-Next" />
   </ItemGroup>
