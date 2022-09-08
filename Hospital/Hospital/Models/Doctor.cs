@@ -15,8 +15,8 @@ namespace Hospital.Models
 
         public string DoctorAddress { get; set; }
 
-        public string DoctorDepartment { get; set; }
-
         public string DoctorPhoto { get; set; }
+
+        public int DoctorDepartment { get; set; }
     }
 }

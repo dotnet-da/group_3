@@ -23,10 +23,12 @@ namespace Hospital.Controllers
             _configuration = configuration;
         }
 
+        // get all doctors
+
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult GetAll()
         {
-            string query = @"SELECT DoctorID, DoctorName, DoctorSurname FROM Doctor";
+            string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -46,10 +48,12 @@ namespace Hospital.Controllers
             return new JsonResult(table);
         }
 
-        [HttpPost]
-        public JsonResult Post(Doctor doctor)
+        // get one doctor
+
+        [HttpGet("{id}")]
+        public JsonResult GetOne(int id)
         {
-            string query = @"INSERT INTO Doctor (DoctorName) VALUES (@DoctorName);";
+            string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID WHERE ID = @ID";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -58,7 +62,37 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@DoctorName", doctor.DoctorName);
+                    myCommand.Parameters.AddWithValue("@ID", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        // add a new doctor
+
+        [HttpPost]
+        public JsonResult Post(Doctor doctor)
+        {
+            string query = @"INSERT INTO Doctor (Name, Surname, Address, Department_ID) VALUES (@Name, @Surname, @Address, @Department_ID);";
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myCommand.Parameters.AddWithValue("@Name", doctor.DoctorName);
+                    myCommand.Parameters.AddWithValue("@Surname", doctor.DoctorSurname);
+                    myCommand.Parameters.AddWithValue("@Address", doctor.DoctorAddress);
+                    myCommand.Parameters.AddWithValue("@Department_ID", doctor.DoctorDepartment);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -71,10 +105,12 @@ namespace Hospital.Controllers
             return new JsonResult("Added Successfully");
         }
 
+        // update a doctor 
+
         [HttpPut]
         public JsonResult Put(Doctor doctor)
         {
-            string query = @"UPDATE Doctor SET DoctorName = @DoctorName WHERE DoctorID = @DoctorID;";
+            string query = @"UPDATE Doctor SET Name = @Name, Surname = @Surname, Address = @Address, @Department_ID = @Department_ID WHERE ID = @ID;";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -83,8 +119,11 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@DoctorID", doctor.DoctorID);
-                    myCommand.Parameters.AddWithValue("@DoctorName", doctor.DoctorName);
+                    myCommand.Parameters.AddWithValue("@ID", doctor.DoctorID);
+                    myCommand.Parameters.AddWithValue("@Name", doctor.DoctorName);
+                    myCommand.Parameters.AddWithValue("@Surname", doctor.DoctorSurname);
+                    myCommand.Parameters.AddWithValue("@Address", doctor.DoctorAddress);
+                    myCommand.Parameters.AddWithValue("@Department_ID", doctor.DoctorDepartment);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -97,10 +136,12 @@ namespace Hospital.Controllers
             return new JsonResult("Updated Successfully");
         }
 
+        // delete a doctor
+
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
-            string query = @"DELETE FROM Doctor WHERE DoctorID = @DoctorID;";
+            string query = @"DELETE FROM Doctor WHERE ID = @ID;";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -109,7 +150,7 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@DoctorID", id);
+                    myCommand.Parameters.AddWithValue("@ID", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
