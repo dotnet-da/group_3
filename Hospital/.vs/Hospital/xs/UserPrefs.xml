@@ -2,18 +2,17 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Hospital/Controllers/DoctorController.cs">
     <Files>
       <File FileName="Hospital/Startup.cs" Line="14" Column="17" />
-      <File FileName="Hospital/Controllers/DepartmentController.cs" Line="22" Column="10" />
-      <File FileName="Hospital/Controllers/DoctorController.cs" Line="103" Column="61" />
+      <File FileName="Hospital/Controllers/DepartmentController.cs" Line="137" Column="18" />
+      <File FileName="Hospital/Controllers/DoctorController.cs" Line="11" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Hospital" expanded="True">
             <Node name="Hospital" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="DoctorController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>

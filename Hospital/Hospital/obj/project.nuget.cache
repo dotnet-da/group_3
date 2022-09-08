@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "chfxWCYBSKMSqTji3SSCqb82Ko8JdHN2g+6YEL8NW9L9ECJtGaXSiAP8wXCYgh+B54stf+MPTM3grkgOnYDISw==",
+  "dgSpecHash": "MvX1R0bfEIcAaIukcEP/YDUNyJG6UPcCpBnxpPcChD7/V9ZGJvMZ8Kk0c9MyMQqz/AbtBVMbeATgLfz3qLCvEg==",
   "success": true,
   "projectFilePath": "/Users/igor/Desktop/group_3/Hospital/Hospital/Hospital.csproj",
   "expectedPackageFiles": [
@@ -15,7 +15,7 @@
     "/Users/igor/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/igor/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "/Users/igor/.nuget/packages/mysql.data/8.0.30/mysql.data.8.0.30.nupkg.sha512",
-    "/Users/igor/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
+    "/Users/igor/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/Users/igor/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "/Users/igor/.nuget/packages/portable.bouncycastle/1.9.0/portable.bouncycastle.1.9.0.nupkg.sha512",
     "/Users/igor/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",

@@ -77,10 +77,13 @@ namespace Hospital.Controllers
 
         // get all doctors in a department
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/doctors")]
         public JsonResult GetDoctors(int id)
         {
-            string query = @"SELECT ID, Name, Surname FROM Department INNER JOIN Doctor ON Doctor.Department_ID = @Department.Department_ID";
+            string query = @"SELECT ID AS Doctor_ID, CONCAT(Name, ' ', Surname) AS Full_Name, Department_Name AS Department
+                            FROM Department INNER JOIN Doctor ON Doctor.Department_ID = Department.Department_ID
+                            WHERE Doctor.Department_ID = @Department_ID";
+            
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -89,7 +92,7 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@Department.Department_ID", id);
+                    myCommand.Parameters.AddWithValue("@Department_ID", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -105,7 +108,7 @@ namespace Hospital.Controllers
         // add a new department
 
         [HttpPost]
-        public JsonResult Post(Department department)
+        public JsonResult Post([FromBody] Department department)
         {
             string query = @"INSERT INTO Department (Department_Name) VALUES (@Department_Name);";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -132,9 +135,9 @@ namespace Hospital.Controllers
         // update a department
 
         [HttpPut]
-        public JsonResult Put(Department department)
+        public JsonResult Put([FromBody] Department department)
         {
-            string query = @"UPDATE Department SET Department_Name = @DepartmentName WHERE Department_ID = @Department_ID;";
+            string query = @"UPDATE Department SET Department_Name = @Department_Name WHERE Department_ID = @Department_ID;";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();

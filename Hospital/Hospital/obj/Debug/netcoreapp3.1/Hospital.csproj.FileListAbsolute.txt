@@ -70,3 +70,4 @@
 /Users/shrutisingh/Documents/group_3/Hospital/Hospital/obj/Debug/netcoreapp3.1/Hospital.RazorTargetAssemblyInfo.cache
 /Users/shrutisingh/Documents/group_3/Hospital/Hospital/obj/Debug/netcoreapp3.1/Hospital.csproj.CopyComplete
 /Users/shrutisingh/Documents/group_3/Hospital/Hospital/obj/Debug/netcoreapp3.1/Hospital.genruntimeconfig.cache
+/Users/igor/Desktop/group_3/Hospital/Hospital/bin/Debug/netcoreapp3.1/BCrypt.Net-Next.dll

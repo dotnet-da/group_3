@@ -28,7 +28,9 @@ namespace Hospital.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID";
+            string query = @"SELECT ID, Name, Surname, Department_Name AS Department
+                            FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID";
+
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -53,7 +55,10 @@ namespace Hospital.Controllers
         [HttpGet("{id}")]
         public JsonResult GetOne(int id)
         {
-            string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID WHERE ID = @ID";
+            string query = @"SELECT ID, Name, Surname, Department_Name AS Department
+                            FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID
+                            WHERE ID = @ID";
+
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -63,6 +68,33 @@ namespace Hospital.Controllers
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
                     myCommand.Parameters.AddWithValue("@ID", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        // get doctors in a department
+
+        [HttpGet("{department_id}")]
+        public JsonResult GetByDepartment(int id)
+        {
+            string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID WHERE Department_ID = @Department_ID";
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myCommand.Parameters.AddWithValue("@Department_ID", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
