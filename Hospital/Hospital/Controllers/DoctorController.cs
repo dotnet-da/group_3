@@ -80,12 +80,14 @@ namespace Hospital.Controllers
             return new JsonResult(table);
         }
 
-        // get doctors that do not have nurses assigned to them
+        // get doctors that have nurses assigned to them
 
-        [HttpGet("/nurse_unassigned")]
-        public JsonResult GetWithUnassignedNurses(int id)
+        [HttpGet("nurse_assigned/")]
+        public JsonResult GetWithAssignedNurses()
         {
-            string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID WHERE Department_ID = @Department_ID";
+            string query = @"SELECT Doctor.ID, Doctor.Name, Doctor.Surname, Doctor.Department_ID
+                            FROM Doctor RIGHT JOIN Nurse ON Doctor.ID = Nurse.Doctor_ID";
+
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -94,8 +96,34 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@Department_ID", id);
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
 
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        // get doctors that do not have nurses assigned to them
+
+        [HttpGet("nurse_unassigned/")]
+        public JsonResult GetWithUnassignedNurses()
+        {
+            string query = @"SELECT Doctor.ID, Doctor.Name, Doctor.Surname, Doctor.Department_ID
+                            FROM Doctor LEFT JOIN Nurse ON Doctor.ID = Nurse.Doctor_ID
+                            WHERE Nurse.Doctor_ID IS NULL";
+
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 

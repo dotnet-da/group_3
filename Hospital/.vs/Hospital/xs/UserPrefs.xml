@@ -1,9 +1,10 @@
 ﻿<Properties StartupConfiguration="{150773A1-BCFA-49F8-842E-E9EC7CCE9359}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Hospital/Controllers/DoctorController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Hospital/Controllers/NurseController.cs">
     <Files>
       <File FileName="Hospital/Startup.cs" Line="14" Column="17" />
       <File FileName="Hospital/Controllers/DepartmentController.cs" Line="153" Column="42" />
-      <File FileName="Hospital/Controllers/DoctorController.cs" Line="142" Column="9" />
+      <File FileName="Hospital/Controllers/DoctorController.cs" Line="173" Column="13" />
+      <File FileName="Hospital/Controllers/NurseController.cs" Line="172" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,7 +12,7 @@
           <Node name="Hospital" expanded="True">
             <Node name="Hospital" expanded="True">
               <Node name="Controllers" expanded="True">
-                <Node name="DoctorController.cs" selected="True" />
+                <Node name="NurseController.cs" selected="True" />
               </Node>
               <Node name="Models" expanded="True" />
             </Node>
