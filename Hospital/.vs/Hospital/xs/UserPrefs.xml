@@ -1,19 +1,20 @@
 ﻿<Properties StartupConfiguration="{150773A1-BCFA-49F8-842E-E9EC7CCE9359}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Hospital/Controllers/DoctorController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Hospital/appsettings.json">
     <Files>
       <File FileName="Hospital/Controllers/DepartmentController.cs" Line="153" Column="42" />
-      <File FileName="Hospital/Controllers/DoctorController.cs" Line="248" Column="1" />
+      <File FileName="Hospital/Controllers/DoctorController.cs" Line="237" Column="16" />
       <File FileName="Hospital/Controllers/NurseController.cs" Line="133" Column="1" />
+      <File FileName="Hospital/appsettings.json" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Hospital" expanded="True">
             <Node name="Hospital" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="DoctorController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Photos" expanded="True" />
+              <Node name="appsettings.json" selected="True" />
             </Node>
           </Node>
         </State>
