@@ -22,6 +22,34 @@ namespace Hospital.Controllers
         {
             _configuration = configuration;
         }
+        
+        //get all nurse
+
+        [HttpGet]
+        public JsonResult GetAll()
+        {
+            string query = @"SELECT ID, Name, Surname, Department_Name AS Department
+                            FROM Nurse INNER JOIN Department ON Nurse.Department_ID = Department.Department_ID";
+
+            string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            using (MySqlConnection myConnection = new MySqlConnection(SQLDataSource))
+            {
+                myConnection.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myConnection.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+        //get one nurse
 
         [HttpGet]
         public JsonResult Get()
