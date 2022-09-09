@@ -28,8 +28,8 @@ namespace Hospital.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            string query = @"SELECT ID, Name, Surname, Department_Name AS Department
-                            FROM Nurse INNER JOIN Department ON Nurse.Department_ID = Department.Department_ID";
+            string query = @"SELECT Nurse.ID, Nurse.Name, Nurse.Surname, Nurse.Doctor_ID AS Doctor, Department_ID AS Department
+                            FROM Nurse INNER JOIN Doctor ON Nurse.Doctor_ID = Doctor.ID";
 
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
