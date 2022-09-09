@@ -134,10 +134,10 @@ namespace Hospital.Controllers
 
         // update a department
 
-        [HttpPut]
-        public JsonResult Put([FromBody] Department department)
+        [HttpPut("{id}")]
+        public JsonResult Put(int id, [FromBody] Department department)
         {
-            string query = @"UPDATE Department SET Department_Name = @Department_Name WHERE Department_ID = @Department_ID;";
+            string query = @"UPDATE Department SET Department_Name = @Department_Name WHERE Department_ID = @ID;";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -146,7 +146,7 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@Department_ID", department.DepartmentID);
+                    myCommand.Parameters.AddWithValue("@ID", id);
                     myCommand.Parameters.AddWithValue("@Department_Name", department.DepartmentName);
 
                     myReader = myCommand.ExecuteReader();

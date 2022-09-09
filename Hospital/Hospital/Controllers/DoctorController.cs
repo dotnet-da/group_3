@@ -80,10 +80,10 @@ namespace Hospital.Controllers
             return new JsonResult(table);
         }
 
-        // get doctors in a department
+        // get doctors that do not have nurses assigned to them
 
-        [HttpGet("{department_id}")]
-        public JsonResult GetByDepartment(int id)
+        [HttpGet("/nurse_unassigned")]
+        public JsonResult GetWithUnassignedNurses(int id)
         {
             string query = @"SELECT ID, Name, Surname, Department_Name FROM Doctor INNER JOIN Department ON Doctor.Department_ID = Department.Department_ID WHERE Department_ID = @Department_ID";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -110,7 +110,7 @@ namespace Hospital.Controllers
         // add a new doctor
 
         [HttpPost]
-        public JsonResult Post(Doctor doctor)
+        public JsonResult Post([FromBody] Doctor doctor)
         {
             string query = @"INSERT INTO Doctor (Name, Surname, Address, Department_ID) VALUES (@Name, @Surname, @Address, @Department_ID);";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -139,10 +139,10 @@ namespace Hospital.Controllers
 
         // update a doctor 
 
-        [HttpPut]
-        public JsonResult Put(Doctor doctor)
+        [HttpPut("{id}")]
+        public JsonResult Put(int id, [FromBody] Doctor doctor)
         {
-            string query = @"UPDATE Doctor SET Name = @Name, Surname = @Surname, Address = @Address, @Department_ID = @Department_ID WHERE ID = @ID;";
+            string query = @"UPDATE Doctor SET Name = @Name, Surname = @Surname, Address = @Address, Department_ID = @Department_ID WHERE ID = @ID;";
             string SQLDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             DataTable table = new DataTable();
@@ -151,7 +151,7 @@ namespace Hospital.Controllers
                 myConnection.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myConnection))
                 {
-                    myCommand.Parameters.AddWithValue("@ID", doctor.DoctorID);
+                    myCommand.Parameters.AddWithValue("@ID", id);
                     myCommand.Parameters.AddWithValue("@Name", doctor.DoctorName);
                     myCommand.Parameters.AddWithValue("@Surname", doctor.DoctorSurname);
                     myCommand.Parameters.AddWithValue("@Address", doctor.DoctorAddress);
