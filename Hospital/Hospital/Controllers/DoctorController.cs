@@ -8,6 +8,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Hospital.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Hospital.Controllers
 {
@@ -18,9 +20,12 @@ namespace Hospital.Controllers
         // dependency injection to read connection strings
 
         private readonly IConfiguration _configuration;
-        public DoctorController(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public DoctorController(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
+            _env = env;
         }
 
         // get all doctors
@@ -223,5 +228,30 @@ namespace Hospital.Controllers
             return new JsonResult("Deleted Successfully");
         }
 
+        // upload a doctor image
+
+        [Route("save_file")]
+        [HttpPost]
+        public JsonResult SaveFile()
+        {
+            try
+            {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string filename = postedFile.FileName;
+                var physicalPath = _env.ContentRootPath + "/Photos/" + filename;
+
+                using (var stream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+
+                return new JsonResult(filename);
+            }
+            catch (Exception)
+            {
+                return new JsonResult("default.png");
+            }
+        }
     }
 }
